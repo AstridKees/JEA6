@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4-mrt-2015, 14:53:05
+    Author     : Luc
+*/
+.wrapper {
+  margin-bottom:10px;
+}
+.first {
+  position:relative;
+  background: #111;
+  border:2px solid black;
+  border-bottom:none;
+  width:150px;
+  margin-bottom:-2px;
+  padding:10px;
+  border-radius:5px 5px 0 0;
+}
+.second {
+  //min-height:100px;
+  border-radius:0 5px 5px 5px;
+  background:#111;
+  border:2px solid black;
+  padding:10px;
+}
+
+.list-group li:nth-child(even){
+  background-color: #222;
+}
+.list-group li:nth-child(odd){
+  background-color: #333;
+}

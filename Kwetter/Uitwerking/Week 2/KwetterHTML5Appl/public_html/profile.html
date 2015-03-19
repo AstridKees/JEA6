@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Kwetter profile</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- JQuery is needed for bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <!-- Dark bootstrap theme -->
+        <link rel="stylesheet" href="http://bootswatch.com/darkly/bootstrap.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+        <!-- AngularJS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <!-- my own stylesheet -->
+        <link rel="stylesheet" href="main.css">
+        <!-- my own javascript -->
+        <script src="main.js"></script>
+    </head>
+    <body data-ng-app="Kwetter" data-ng-controller="Kwetter_profile">
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Kwetter</h1>
+                <p>Luc Kolen S61</p> 
+            </div>
+            <div class="row">
+                <!-- left collumn -->
+                <div class="col-sm-6">
+                    <div class="wrapper">
+                        <div class="first">S0</div>
+                        <div class="second">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <img data-ng-src="{{currentUser.image}}" style="width:100px;height:100px;" alt="Profile picture">
+                                    Name: <span>{{currentUser.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper" data-ng-switch on='s1_switch'>
+                        <div class="first" data-ng-switch-default>S1 Tweets</div>
+                        <div class="second" data-ng-switch-default>
+                            <ul class="list-group">
+                                <li class="list-group-item" data-ng-repeat="tweet in currentUser.tweets">
+                                    <div style="width:100%">
+                                        {{tweet.tweet}}
+                                    </div>
+                                    <div style="width:100%">
+                                        {{tweet.date}}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="first" data-ng-switch-when="following">S1 Following</div> 
+                        <div class="second" data-ng-switch-when="following">
+                            <ul class="list-group">
+                                <li class="list-group-item" data-ng-repeat="followedUserID in currentUser.following">
+                                    {{getUserById(followedUserID).name}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="first" data-ng-switch-when="followers">S1 Followers</div> 
+                        <div class="second" data-ng-switch-when="followers">
+                            <ul class="list-group">
+                                <li class="list-group-item" data-ng-repeat="followerUserId in currentUser.followers">
+                                    {{getUserById(followerUserId).name}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- right collumn -->
+                <div class="col-sm-6">
+                    <div class="wrapper">
+                        <div class="first">S2 Details</div> 
+                        <div class="second">
+                            <strong>Name:</strong> <span>{{currentUser.name}}</span> <br>
+                            <strong>Location:</strong> <span>{{currentUser.location}}</span> <br>
+                            <strong>Web:</strong> <a href="{{currentUser.web}}">{{currentUser.web}}</a> <br> 
+                            <strong>Bio:</strong> <span>{{currentUser.bio}}</span>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="first">S3</div>
+                        <div class="second">
+                            <a href='#' data-ng-click='s1_switch="following"'>{{currentUser.following.length}} following</a> <br>
+                            <a href='#' data-ng-click='s1_switch="followers"'>{{currentUser.followers.length}} followers</a> <br>
+                            <a href='#' data-ng-click='s1_switch="tweets"'>{{currentUser.tweets.length}} tweets</a>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="first">S4 Following</div>
+                        <div class="second">
+                            <div class="row">
+                                <a href='profile.html?id={{followedUserID}}' class="col-sm-3" data-ng-repeat="followedUserID in currentUser.following">
+                                    {{getUserById(followedUserID).name}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

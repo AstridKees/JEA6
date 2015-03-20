@@ -11,16 +11,12 @@ public class User {
 
     private static final long serialVersionUID = 1L;
 
-    @XmlElement(required = true)
     private Long id;
-    @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
     private String web;
-    @XmlElement(required = true)
     private String image = "http://i.imgur.com/SxKJEWo.png";
-    @XmlElement(required = true)
     private String bio;
+    private String location = "Nederland";
 
     private Collection<Long> following = new ArrayList();
     private Collection<Long> followers = new ArrayList();
@@ -40,10 +36,12 @@ public class User {
         this.id = id;
     }
 
+    @XmlElement(required = true)
     public Long getId() {
         return id;
     }
 
+    @XmlElement(required = true)
     public String getBio() {
         return bio;
     }
@@ -52,6 +50,7 @@ public class User {
         this.bio = bio;
     }
 
+    @XmlElement(required = true)
     public String getName() {
         return name;
     }
@@ -60,6 +59,7 @@ public class User {
         this.name = name;
     }
 
+    @XmlElement(required = true)
     public String getWeb() {
         return web;
     }
@@ -67,7 +67,8 @@ public class User {
     public void setWeb(String web) {
         this.web = web;
     }
-    
+
+    @XmlElement(required = true)
     public String getImage() {
         return image;
     }
@@ -76,16 +77,31 @@ public class User {
         this.image = image;
     }
 
+    @XmlElement(required = true)
     public Collection<Long> getFollowing() {
         return Collections.unmodifiableCollection(following);
+    }
+
+    @XmlElement(required = true)
+    public Collection<Long> getFollowers() {
+        return Collections.unmodifiableCollection(followers);
     }
 
     public void setFollowing(Collection<Long> following) {
         this.following = following;
     }
 
+    @XmlElement(required = true)
     public Collection<Tweet> getTweets() {
         return Collections.unmodifiableCollection(tweets);
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public void setTweets(Collection<Tweet> tweets) {

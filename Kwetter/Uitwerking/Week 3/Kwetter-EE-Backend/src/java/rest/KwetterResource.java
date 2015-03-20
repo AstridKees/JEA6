@@ -5,17 +5,19 @@
  */
 package rest;
 
+import domain.Tweet;
 import domain.User;
 import java.util.List;
 import javax.faces.bean.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import service.KwetterService;
 
@@ -31,7 +33,8 @@ public class KwetterResource {
     @Context
     private UriInfo context;
 
-    KwetterService kwetterService = new KwetterService();
+    @Inject
+    KwetterService kwetterService;
 
     /**
      * Creates a new instance of KwetterResource
@@ -39,25 +42,27 @@ public class KwetterResource {
     public KwetterResource() {
     }
 
-    /**
-     *
-     * @return an instance of java.lang.String
-     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("findAllUsers")
+    @Path("api")
     public List<User> findAllUsers() {
         return kwetterService.findAll();
     }
 
-    /**
-     * PUT method for updating or creating an instance of KwetterResource
-     *
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
-    @PUT
-    @Consumes("application/json")
-    public void putJson(String content) {
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("api")
+    public String addTweet(Tweet tweet, @QueryParam("userID") Long userID) {
+        Boolean succes;
+        String message = "";
+        
+        tweet.setId(kwetterService.nextTweetID());
+        succes = kwetterService.find(userID).addTweet(tweet);
+        if (!succes) {
+            message = "Error adding tweet";
+        }
+
+        return String.format("{\"succes\":\"%b\",\"message\":\"%s\"}", succes, message);
     }
 }

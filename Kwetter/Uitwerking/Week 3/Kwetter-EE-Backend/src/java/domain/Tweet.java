@@ -8,42 +8,46 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Tweet {
 
     private static final long serialVersionUID = 1L;
+    
 
-    @XmlElement(required = true)
     private Long id;
-    @XmlElement(required = true)
-    private String tweet;
-    @XmlElement(required = true)
+    private String tweetText;
     private Date date;
-    @XmlElement(required = true)
     private String postedFrom;
 
     public Tweet() {
     }
 
     public Tweet(String tweet) {
-        this.tweet = tweet;
+        this.tweetText = tweet;
     }
 
-    public Tweet(String tweet, Date datum, String vanaf, Long id) {
-        this.tweet = tweet;
-        this.date = datum;
-        this.postedFrom = vanaf;
-        this.id = id;
+    public Tweet(String tweetText, Date datum, String vanaf, Long id) {
+        setTweetText(tweetText);
+        setDatum(datum);
+        setVanaf(vanaf);
+        setId(id);
     }
 
+    @XmlElement(required = true)
     public Long getId() {
         return id;
     }
-
-    public String getTweet() {
-        return tweet;
+    
+    public void setId(Long id){
+        this.id = id;
     }
 
-    public void setTweet(String tweet) {
-        this.tweet = tweet;
+    @XmlElement(required = true)
+    public String getTweetText() {
+        return tweetText;
     }
 
+    public void setTweetText(String tweetText) {
+        this.tweetText = tweetText;
+    }
+
+    @XmlElement(required = true)
     public Date getDatum() {
         return date;
     }
@@ -52,6 +56,7 @@ public class Tweet {
         this.date = datum;
     }
 
+    @XmlElement(required = true)
     public String getVanaf() {
         return postedFrom;
     }
@@ -63,7 +68,7 @@ public class Tweet {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (tweet != null ? tweet.hashCode() + date.hashCode() : 0);
+        hash += (tweetText != null ? tweetText.hashCode() + date.hashCode() : 0);
         return hash;
     }
 

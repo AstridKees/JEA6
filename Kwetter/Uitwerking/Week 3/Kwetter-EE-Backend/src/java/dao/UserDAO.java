@@ -16,4 +16,6 @@ public interface UserDAO {
     User find(Long id);
 
     void remove(User user);
+    
+    Long nextTweetID();
 }

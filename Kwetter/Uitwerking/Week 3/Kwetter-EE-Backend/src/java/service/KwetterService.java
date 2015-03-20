@@ -31,11 +31,15 @@ public class KwetterService {
     }
 
     public User find(Object id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return userDAO.find((Long)id);
     }
 
     public int count() {
         return userDAO.count();
+    }
+    
+    public Long nextTweetID(){
+        return userDAO.nextTweetID();
     }
 
 }

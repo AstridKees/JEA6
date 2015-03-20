@@ -72,10 +72,10 @@ and open the template in the editor.
                             <ul class="list-group">
                                 <li class="list-group-item" data-ng-repeat="tweet in getMyTweetsAndFromFollowedAccounts()| filter:searchText">
                                     <div style="width:100%">
-                                        {{tweet.tweet}}
+                                        {{tweet.tweetText}}
                                     </div>
                                     <div style="width:100%">
-                                        {{tweet.date | date:'yyyy-MM-dd HH:mm:ss'}}
+                                        {{tweet.datum| date:'yyyy-MM-dd HH:mm:ss'}}
                                     </div>
                                 </li>
                             </ul>
@@ -88,9 +88,9 @@ and open the template in the editor.
                         <div class='first'>Your tweets {{currentUser.tweets.length}}</div>
                         <div class='second'>
                             <div style="width:100%">
-                                At {{currentUser.tweets[currentUser.tweets.length - 1].date | date:'yyyy-MM-dd HH:mm:ss'}}: </div>
+                                At {{currentUser.tweets[currentUser.tweets.length - 1].datum| date:'yyyy-MM-dd HH:mm:ss'}}: </div>
                             <div style="width:100%">
-                                {{currentUser.tweets[currentUser.tweets.length - 1].tweet}}
+                                {{currentUser.tweets[currentUser.tweets.length - 1].tweetText}}
                             </div>
                         </div>
                     </div>
@@ -99,10 +99,12 @@ and open the template in the editor.
                         <div class='col-sm-6'>
                             <div class='wrapper'>
                                 <div class='first'>Following {{currentUser.following.length}}</div>
-                                <div class='second' data-ng-repeat="followedUserID in currentUser.following">
-                                    <a href='profile.html?id={{followedUserID}}'>
-                                        <img data-ng-src="{{getUserById(followedUserID).image}}" style='width:50px;height:50px' alt='profile picture'/>
-                                    </a>
+                                <div class='second' >
+                                    <span data-ng-repeat="followedUserID in currentUser.following">
+                                        <a href='profile.html?id={{followedUserID}}'>
+                                            <img data-ng-src="{{getUserById(followedUserID).image}}" style='width:50px;height:50px' alt='profile picture'/>
+                                        </a>
+                                    </span>
                                 </div>
                             </div>
                         </div>

@@ -33,7 +33,7 @@
 
     var app = angular.module('Kwetter', ['ngResource']);
     app.factory("userFactory", ['$resource', function ($resource) {
-            return $resource("http://localhost:8080/Kwetter-EE-Backend/rest/api");
+            return $resource("http://localhost:8080/Kwetter-EE-Backend/rest/api/:id");
         }]);
     app.controller("Kwetter_profile", ['$scope', 'userFactory', function ($scope, userFactory) {
             userFactory.query(function (data) {
@@ -69,28 +69,31 @@
             }
         }]);
     app.controller("Kwetter_loggedin", ['$scope', 'userFactory', function ($scope, userFactory) {
-            userFactory.query(function (data) {
-                console.log("Loaded users");
-                console.log(data);
-                $scope.users = data;
-                $scope.currentUser = getUserById($scope.users, params.id);
-                $scope.getMyTweetsAndFromFollowedAccounts = function () {
-                    var timeline = [];
-                    for (i in $scope.currentUser.tweets) {
-                        timeline.push($scope.currentUser.tweets[i]);
-                    }
-                    for (i in $scope.currentUser.following) {
-                        var user = getUserById($scope.users, $scope.currentUser.following[i]);
-                        for (j in user.tweets) {
-                            timeline.push(user.tweets[j]);
+            function getUsers() {
+                userFactory.query(function (data) {
+                    console.log("Loaded users");
+                    console.log(data);
+                    $scope.users = data;
+                    $scope.currentUser = getUserById($scope.users, params.id);
+                    $scope.getMyTweetsAndFromFollowedAccounts = function () {
+                        var timeline = [];
+                        for (i in $scope.currentUser.tweets) {
+                            timeline.push($scope.currentUser.tweets[i]);
                         }
-                    }
-                    timeline.sort(function (a, b) {
-                        return a.id == b.id ? 0 : a.id < b.id ? 1 : -1;
-                    });
-                    return timeline;
-                };
-            });
+                        for (i in $scope.currentUser.following) {
+                            var user = getUserById($scope.users, $scope.currentUser.following[i]);
+                            for (j in user.tweets) {
+                                timeline.push(user.tweets[j]);
+                            }
+                        }
+                        timeline.sort(function (a, b) {
+                            return a.id == b.id ? 0 : a.id < b.id ? 1 : -1;
+                        });
+                        return timeline;
+                    };
+                });
+            }
+            getUsers();
             //this is needed because we've data-ng-src="{{getUserById(followedUserID).image}}" in line 105 on loggedin.html
             $scope.getUserById = function (id) {
                 return getUserById($scope.users, id);
@@ -98,15 +101,17 @@
             $scope.logout = function () {
                 location.href = "index.html";
             };
-            
+
             $scope.submitTweet = function () {
                 var tweet = {
                     tweetText: $scope.tweetText,
                     datum: new Date().toJSON(), //JavaEE understands this format while consuming JSON
                     vanaf: "web"
                 };
-                userFactory.save(tweet);
+                userFactory.save({id: params.id}, tweet).$promise.finally(function () {
+                    getUsers();
+                });
                 $scope.tweetText = "";
-            }
+            };
         }]);
 }());

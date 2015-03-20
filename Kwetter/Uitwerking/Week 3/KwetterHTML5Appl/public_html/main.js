@@ -41,7 +41,7 @@
             dataFactory.addTweet = function (tweet) {
                 return $http({
                     method: "POST",
-                    url: "http://localhost:8080/Kwetter-EE-Backend/rest/api?userID=" + params.id,
+                    url: "http://localhost:8080/Kwetter-EE-Backend/rest/api/" + params.id,
                     headers: {"Content-Type": "application/json"},
                     data: tweet
                 });

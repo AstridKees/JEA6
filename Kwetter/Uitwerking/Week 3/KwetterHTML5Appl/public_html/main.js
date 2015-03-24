@@ -64,6 +64,10 @@
             }
             getUsers();
             $scope.s1_switch = "tweets"; //(options are: tweets, following and followers)
+            //this is needed because we've get users by id on profile.html
+            $scope.getUserById = function (id) {
+                return getUserById($scope.users, id);
+            };
         }]);
 
     app.controller("Kwetter_home", ['$scope', 'userFactory', function ($scope, userFactory) {

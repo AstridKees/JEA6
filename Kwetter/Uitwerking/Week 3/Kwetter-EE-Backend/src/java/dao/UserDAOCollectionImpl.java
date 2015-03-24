@@ -21,9 +21,12 @@ public class UserDAOCollectionImpl implements UserDAO {
         User u2 = new User("Frank", "httpF", "geboren 2", 2L);
         User u3 = new User("Tom", "httpT", "geboren 3", 3L);
         User u4 = new User("Sjaak", "httpS", "geboren 4", 4L);
-        u1.addFollowing(u2.getId());
-        u1.addFollowing(u3.getId());
-        u1.addFollowing(u4.getId());
+        addFollower(u1, u2);
+        addFollower(u1, u3);
+        addFollower(u1, u4);
+        addFollower(u2, u1);
+        addFollower(u3, u1);
+        addFollower(u4, u1);
 
         Tweet t1 = new Tweet("Hallo", new Date(), "PC", 1L);
         Tweet t2 = new Tweet("Hallo again", new Date(), "PC", 2L);
@@ -81,5 +84,10 @@ public class UserDAOCollectionImpl implements UserDAO {
             }
         }
         return nextID;
+    }
+    
+    public void addFollower(User userToFollow, User follower){
+        userToFollow.addFollower(follower.getId());
+        follower.addFollowing(userToFollow.getId());
     }
 }

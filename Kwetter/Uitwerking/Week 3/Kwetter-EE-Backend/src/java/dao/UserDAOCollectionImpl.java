@@ -5,8 +5,9 @@ import java.util.Date;
 import java.util.List;
 import domain.Tweet;
 import domain.User;
+import javax.faces.bean.ApplicationScoped;
 
-//@Stateless
+@ApplicationScoped
 public class UserDAOCollectionImpl implements UserDAO {
 
     private List<User> users = new ArrayList();

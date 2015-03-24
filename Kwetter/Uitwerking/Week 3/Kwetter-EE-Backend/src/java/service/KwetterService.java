@@ -5,11 +5,15 @@ import javax.ejb.Stateless;
 import dao.UserDAO;
 import dao.UserDAOCollectionImpl;
 import domain.User;
+import javax.faces.bean.ApplicationScoped;
+import javax.inject.Inject;
 
 @Stateless
+@ApplicationScoped
 public class KwetterService {
 
-    private UserDAO userDAO = new UserDAOCollectionImpl();
+    @Inject
+    private UserDAO userDAO;
 
     public KwetterService() {
     }

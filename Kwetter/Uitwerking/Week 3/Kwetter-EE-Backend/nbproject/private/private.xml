@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Dropbox/Fontys/P11%20V2/JEA6/Kwetter/Uitwerking/Week%203/Kwetter-EE-Backend/src/java/rest/KwetterResource.java</file>
-            <file>file:/D:/Dropbox/Fontys/P11%20V2/JEA6/Kwetter/Uitwerking/Week%203/Kwetter-EE-Backend/src/java/domain/User.java</file>
-            <file>file:/D:/Dropbox/Fontys/P11%20V2/JEA6/Kwetter/Uitwerking/Week%203/Kwetter-EE-Backend/src/java/service/KwetterService.java</file>
-            <file>file:/D:/Dropbox/Fontys/P11%20V2/JEA6/Kwetter/Uitwerking/Week%203/Kwetter-EE-Backend/src/java/dao/UserDAOCollectionImpl.java</file>
-            <file>file:/D:/Dropbox/Fontys/P11%20V2/JEA6/Kwetter/Uitwerking/Week%203/Kwetter-EE-Backend/src/java/dao/UserDAO.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

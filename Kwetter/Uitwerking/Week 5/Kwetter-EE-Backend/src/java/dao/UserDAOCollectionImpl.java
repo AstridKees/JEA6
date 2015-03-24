@@ -6,10 +6,12 @@ import java.util.List;
 import domain.Tweet;
 import domain.User;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Alternative;
 import javax.faces.bean.ApplicationScoped;
 
 @ApplicationScoped
 @Stateless
+@Alternative
 public class UserDAOCollectionImpl implements UserDAO {
 
     private final List<User> users = new ArrayList();
@@ -53,14 +55,17 @@ public class UserDAOCollectionImpl implements UserDAO {
         users.add(user);
     }
 
+    @Override
     public void edit(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public List<User> findAll() {
         return new ArrayList(users);
     }
 
+    @Override
     public void remove(User user) {
         users.remove(user);
     }
@@ -87,8 +92,9 @@ public class UserDAOCollectionImpl implements UserDAO {
         }
         return nextID;
     }
-    
-    public void addFollower(User userToFollow, User follower){
+
+    @Override
+    public void addFollower(User userToFollow, User follower) {
         userToFollow.addFollower(follower.getId());
         follower.addFollowing(userToFollow.getId());
     }

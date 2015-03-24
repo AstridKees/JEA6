@@ -1,15 +1,19 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Tweet {
+@Entity
+public class Tweet implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-
+    @Id
     private Long id;
     private String tweetText;
     private Date date;

@@ -18,4 +18,6 @@ public interface UserDAO {
     void remove(User user);
     
     Long nextTweetID();
+    
+    void addFollower(User userToFollow, User follower);
 }

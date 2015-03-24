@@ -3,7 +3,6 @@ package service;
 import java.util.List;
 import javax.ejb.Stateless;
 import dao.UserDAO;
-import dao.UserDAOCollectionImpl;
 import domain.User;
 import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;

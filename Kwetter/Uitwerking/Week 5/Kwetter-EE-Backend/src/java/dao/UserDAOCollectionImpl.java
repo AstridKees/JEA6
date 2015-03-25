@@ -80,7 +80,6 @@ public class UserDAOCollectionImpl implements UserDAO {
         return null;
     }
 
-    @Override
     public Long nextTweetID() {
         Long nextID = 0L;
         for (User u : users) {

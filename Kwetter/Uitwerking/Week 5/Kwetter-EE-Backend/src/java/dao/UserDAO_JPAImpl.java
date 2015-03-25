@@ -9,6 +9,7 @@ import domain.Tweet;
 import domain.User;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Alternative;
 import javax.persistence.EntityManager;
@@ -23,13 +24,13 @@ import javax.persistence.Query;
 @Stateless
 public class UserDAO_JPAImpl implements UserDAO {
 
-    @PersistenceContext(unitName = "Kwetter-EE-BackendPU")
+    @PersistenceContext
     private EntityManager em;
 
     public UserDAO_JPAImpl() {
-        initUsers();
     }
 
+    @PostConstruct
     private void initUsers() {
         User u1 = new User("Hans", "http", "geboren 1", 1L);
         User u2 = new User("Frank", "httpF", "geboren 2", 2L);
@@ -68,7 +69,7 @@ public class UserDAO_JPAImpl implements UserDAO {
 
     @Override
     public void edit(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        em.merge(user);
     }
 
     @Override
@@ -90,12 +91,25 @@ public class UserDAO_JPAImpl implements UserDAO {
     }
 
     @Override
-    public Long nextTweetID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addFollower(User userToFollow, User follower) {
+        userToFollow.addFollower(follower.getId());
+        follower.addFollowing(userToFollow.getId());
     }
 
     @Override
-    public void addFollower(User userToFollow, User follower) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Long nextTweetID() {
+        //Beter zou het gebruik van @GeneratedValue bij id hier zijn
+        List<User> users = findAll();
+        Long nextID = 0L;
+        for (User u : users) {
+            for (Tweet t : u.getTweets()) {
+                if (t.getId() >= nextID) {
+                    nextID = t.getId() + 1;
+                }
+            }
+        }
+        return nextID;
     }
+    
+   
 }

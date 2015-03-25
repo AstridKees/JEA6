@@ -58,10 +58,12 @@ public class KwetterResource {
         String message = "";
         
         tweet.setId(kwetterService.nextTweetID());
-        succes = kwetterService.find(userID).addTweet(tweet);
+        User user = kwetterService.find(userID);
+        succes = user.addTweet(tweet);
         if (!succes) {
             message = "Error adding tweet";
         }
+        kwetterService.edit(user);
 
         return String.format("{\"succes\":\"%b\",\"message\":\"%s\"}", succes, message);
     }

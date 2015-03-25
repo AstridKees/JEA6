@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,6 +28,7 @@ public class User implements Serializable {
 
     private Collection<Long> following = new ArrayList();
     private Collection<Long> followers = new ArrayList();
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private Collection<Tweet> tweets = new ArrayList();
 
     public User() {

@@ -2,8 +2,12 @@ package domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,6 +20,8 @@ public class Tweet implements Serializable {
     @Id
     private Long id;
     private String tweetText;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "dateField")
     private Date date;
     private String postedFrom;
 
